@@ -1,24 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import GoogleMapTrack from "./components/GoogleMapTrack/GoogleMapTrack";
+import "./App.css";
 
 function App() {
+  const [location, setLocation] = useState({ lat: 0, lon: 0 });
+
+  const renderPos = () => (
+    <div>
+      <h2>{location.lat}</h2>
+      <h2>{location.lon}</h2>
+    </div>
+  );
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:3001");
+
+    //abre el socket
+    ws.onopen = () => {
+      console.log("open my ws");
+      ws.onmessage = msg => {
+        console.log(msg);
+        setLocation(JSON.parse(msg.data));
+      };
+    };
+    fetch("/location?conductor=5de2a2dbd7398b0017ee6875")
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data.err) {
+          console.log(data);
+        } else {
+          setLocation(data);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GoogleMapTrack lat={location.lat} lon={location.lon} />
     </div>
   );
 }
