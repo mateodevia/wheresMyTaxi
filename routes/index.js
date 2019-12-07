@@ -3,11 +3,6 @@ var router = express.Router();
 var MyMongoLib = require("../MyMongoLib");
 const myMongoLib = MyMongoLib();
 
-/* GET home page. */
-router.get("/", function(req, res) {
-  res.render("index", { title: "Express" });
-});
-
 router.get("/location", (req, res) => {
   let conductor = req.query.conductor;
   console.log(conductor);
