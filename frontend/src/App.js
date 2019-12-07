@@ -13,7 +13,7 @@ function App() {
   );
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3001");
+    const ws = new WebSocket("wss://wheres-my-taxi.herokuapp.com");
 
     //abre el socket
     ws.onopen = () => {
@@ -27,7 +27,7 @@ function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get("conductor");
     console.log(myParam);
-    fetch("/location?conductor=" + myParam)
+    fetch("location?conductor=" + myParam)
       .then(res => {
         return res.json();
       })
