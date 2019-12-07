@@ -6,12 +6,8 @@ class GoogleMapTrack extends Component {
   miMap = null;
 
   renderMarkers(map, maps) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        map.panTo({ lat: this.props.lat, lng: this.props.lon });
-        this.miMap = map;
-      });
-    }
+    map.panTo({ lat: this.props.lat, lng: this.props.lon });
+    this.miMap = map;
   }
 
   componentDidUpdate() {

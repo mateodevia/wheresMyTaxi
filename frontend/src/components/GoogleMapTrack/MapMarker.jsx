@@ -8,12 +8,7 @@ class MapMarker extends React.Component {
   }
 
   render() {
-    return (
-      <div
-        className="marker"
-        style={{ backgroundColor: "#f7b334", cursor: "pointer" }}
-      />
-    );
+    return <img src={taxi} className="marker" />;
   }
 }
 
