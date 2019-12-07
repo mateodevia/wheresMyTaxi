@@ -23,7 +23,11 @@ function App() {
         setLocation(JSON.parse(msg.data));
       };
     };
-    fetch("/location?conductor=5de2a2dbd7398b0017ee6875")
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("conductor");
+    console.log(myParam);
+    fetch("/location?conductor=" + myParam)
       .then(res => {
         return res.json();
       })
